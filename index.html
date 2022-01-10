@@ -13,25 +13,25 @@
 <body>
     <header class="header"></header>
     <div class="main-container">
-        <div class="calculator">
-            <div id="calc__screen">
-                <div id="calc-status">
-                    <div id="screenPrecedence">
+        <div class="calculator"> 
+            <div class="calc__screen">
+                <div class="calc-screen__status">
+                    <div class="calc-screen__precedence">
                         <p>&#247 > &#215 > + > -</p>
                     </div>
-                    <div id="screenDAR">
+                    <div class="calc-screen__DAR" id="screenDAR">
                         <p>[ <strike>a+b</strike> => c]</p>
                     </div>
                 </div>
-                <div id="calc_display"></div>
-                <div id="calc_input"></div>
+                <div class="calc-screen__display"></div>
+                <div class="calc-screen__input"></div>
             </div>
-            <div id=calc__special-btns>
-                <button id="opPrecedence">a+(b * c)</button>
-                <button id="displayAsResult"><strike>a+b</strike> = c</button>
+            <div class="calc__special-btns">
+                <button class="op-precedence">a+(b * c)</button>
+                <button class="display-as-result"><strike>a+b</strike> = c</button>
             </div>
-            <div id="calc__btns-container">
-                <button id="allClear" class="clear" data-key="46">AC</button>
+            <div class="calc__btns-container">
+                <button id="all-clear" class="clear" data-key="46">AC</button>
                 <button id="backspace" class="clear" data-key="8">&#8592</button>
                 <button id="factorial" class="factorial">&#33</button>
                 <button id="divide" class="operators" data-key="220" value="/">&#247</button>

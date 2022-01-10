@@ -1,0 +1,194 @@
+    /*** COLOR VARIABLES ***/
+    :root {
+        --color-heavy-metal: #222423;
+        --color-log-cabin: #0b0e0c;
+        --color-ming: #409191;
+        --color-fountain-blue: #49b6b6;
+        --color-silver: #bdbdbd;
+    }
+
+    /*GLOBAL SELECTORS*/
+    * {
+        box-sizing: border-box;
+        background-attachment: fixed;
+        -khtml-user-select: none;
+        -o-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    button {
+        font-size: 150%;
+        border-radius: 15%;
+        background: var(--color-ming);
+        color: white;
+        border: 0;
+        cursor: pointer;
+        width: 75px;
+        height: 60px;
+        transition: 0.1s;
+        box-shadow: 2px 4px 7px var(--color-log-cabin);
+        overflow: auto;
+    }
+
+    button:active {
+        transform: translate(0, 5px);
+        box-shadow: 1px 2px 4px var(--color-log-cabin);
+        opacity: 0.7;
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    /*** CALCULATOR ***/
+    s .digits:hover, .non:hover {
+        background: var(--color-fountain-blue);
+        color: black;
+    }
+
+    .operators {
+        background: rgba(221, 45, 0, 0.7);
+    }
+
+    .operators:hover {
+        background: rgba(221, 45, 0);
+    }
+
+    .clear {
+        background: rgba(161, 121, 68, 0.7);
+    }
+
+    .clear:hover {
+        background: rgb(161, 121, 68);
+    }
+
+    .factorial {
+        background: rgba(31, 76, 143, 0.7);
+    }
+
+    .factorial:hover {
+        background: rgb(31, 76, 143);
+    }
+
+    #equal {
+        background: rgba(42, 156, 69, 0.7);
+    }
+
+    #equal:hover {
+        background: rgb(42, 156, 69);
+    }
+
+    div {
+        margin: 0 auto;
+    }
+
+    /*container for calculator */
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .calculator {
+        background: var(--color-heavy-metal);
+        width: 400px;
+        height: 540px;
+        border-radius: 6%;
+        box-shadow: 3px 4px 11px var(--color-log-cabin);
+    }
+
+    .calc__screen {
+        display: flex;
+        background: rgb(49, 51, 48);
+        flex-wrap: wrap;
+        flex-flow: column;
+        height: 100px;
+        margin: 40px 40px 1px 40px;
+        border-radius: 9%;
+        text-align: right;
+        box-shadow: inset 1px 2px 8px var(--color-log-cabin);
+    }
+
+    .calc-screen__status {
+        display: flex;
+        color: rgb(47, 49, 46);
+        font-family: 'Nunito Sans', sans-serif;
+        overflow: hidden;
+        font-size: 55%;
+    }
+
+    .calc-screen__status>div {
+        margin: 5px 0 0 25px;
+        height: inherit;
+    }
+
+    .op-precedence {
+        color: rgb(160, 236, 18);
+    }
+
+    .calc-screen__DAR {
+        color: rgb(160, 236, 18);
+    }
+
+    /* displays the arithmetic expressions*/
+    .calc-screen__display {
+        font-family: 'Nunito Sans', sans-serif;
+        color: rgb(160, 236, 18);
+        overflow: hidden;
+        margin-top: 10px;
+        display: inline-block;
+        flex-grow: 4;
+        align-self: flex-end;
+        font-size: 117%;
+        width: 100%;
+        padding: 0 10px 0 0;
+        text-shadow: 0 0 3px var(--color-silver);
+    }
+
+    .calc-screen__input {
+        font-family: 'Nunito Sans', sans-serif;
+        color: rgb(160, 236, 18);
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+        padding: 10px;
+        font-size: 185%;
+        text-shadow: 0 0 3px var(--color-silver);
+    }
+
+    .calc__special-btns {
+        display: flex;
+        justify-content: start;
+        margin: 0 37px;
+    }
+
+    .calc__special-btns>button {
+        font-size: 65%;
+        border-radius: 15%;
+        background: rgb(99, 2, 2);
+        color: white;
+        border: 0;
+        width: 65px;
+        height: 17px;
+        transition: 0.1s;
+        margin: 3px 5px;
+        box-shadow: 1.5px 3px 4px var(--color-log-cabin);
+        overflow: auto;
+    }
+
+    .calc__special-btns>button:active {
+        transform: translate(0, 2px);
+        box-shadow: 1px 2px 4px var(--color-log-cabin);
+        opacity: 0.8;
+    }
+
+    .calc__btns-container {
+        display: grid;
+        justify-content: center;
+        margin: 2px 50px;
+        grid-template-columns: repeat(4, 24% [col-start]);
+        gap: 4%;
+    }
