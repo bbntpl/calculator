@@ -21,7 +21,7 @@ let allowDecimal = true;
 let allowOp = false;
 let strWithoutWhitespace = "";
 
-//return the simple arithmetic expressions associated with the operator
+//calculate a simple math
 function calculate(op, a, b) {
     const arithmeticObj = {
         "*": +a * +b,
@@ -34,55 +34,67 @@ function calculate(op, a, b) {
 
 /*It's functionality is to ranked the order of each operators in terms of precedence. 
     The highest ranked will be the first set of simple arithmetic expression to return its result.*/
-function supersedeOperators(v, ii) {
-    if (v == "/" && ii == 0) {
+function supersedeOperators(operator, operatorPrecedence) {
+    if (operator == "/" && operatorPrecedence == 0) {
         return "/";
     }
-    else if (v == "*" && ii == 1) {
+    else if (operator == "*" && operatorPrecedence == 1) {
         return "*";
     }
-    else if (v == "+" && ii == 2) {
+    else if (operator == "+" && operatorPrecedence == 2) {
         return "+";
     }
-    else if (v == "-" && ii == 3) {
+    else if (operator == "-" && operatorPrecedence == 3) {
         return "-";
     }
 }
-//counts the number of operators
-function countOperators(arr) {
-    let ii = 0;
-    arr.forEach(el => {
-        if (el == "/" || el == "*" || el == "+" || el == "-") {
-            return ii++;
+
+//count the number of operators
+function countOperators(numOfOp) {
+    let operatorPrecedence = 0;
+    numOfOp.forEach(operator => {
+        if (operator == "/" || operator == "*" || operator == "+" || operator == "-") {
+            return operatorPrecedence++;
         }
     });
-    return ii;
+    return operatorPrecedence;
 }
 
-//evaluate the arithmetic expression while precedence operator is enabled
+//calculate the arithmetic expression with complexity
 function evaluateAnswer() {
-    let arr = calcDisplay.textContent.split(" "); //splitting the characters of the aritmetic expression with the whitespace
+    //splitting the characters of the aritmetic expression with the whitespace
+    let calcExp = calcDisplay.textContent.split(" ");
     let total = 0;
-    for (let ii = 0; ii <= 3; ii++) { //ii=0 is divide, ii=1 is multiply, ii=2 is add, ii=3 is substraction
-        arr.reduce((p, v, i, arr) => { //checks each character to compare
+    /* 
+        ii=0 is divide
+        ii=1 is multiply
+        ii=2 is add,
+        ii=3 is substraction
+    */
+    for (let ii = 0; ii <= 3; ii++) {
+        calcExp.reduce((p, v, i, arr) => {
             if (v == supersedeOperators(v, ii)) {
                 let op = v;
-                p = arr[i - 1]; //making sure previous is not undefined after assigning as a whitespace
-                total = calculate(op, p, arr[i + 1]); //it calculates the number inbetween the operator by calling the calculate func
-                arr[i + 1] = total; //replace the next value as total
-                arr[i] = " "; //replace the current value with whitespace 
-                arr[i - 1] = " ";//replace the previous value with whitespace 
+                //making sure previous is not undefined after assigning as a whitespace
+                p = arr[i - 1]; 
+                total = calculate(op, p, arr[i + 1]); 
+                //replace the next value as total
+                arr[i + 1] = total; 
+                //replacing the previous && current value with whitespace 
+                arr[i] = " "; 
+                arr[i - 1] = " ";
             }
             else if (arr.length < 2) {
-                return calcInput.textContent = v; //return the current value 
+                //display the answer
+                return calcInput.textContent = v;
             }
         });
-        arr = arr.filter(function (str) {// removes all whitespaces value in the array
+        calcExp = calcExp.filter(function (str) {// removes all whitespaces value in the array
             return /\S/.test(str);
         });
     }
     //limit demical places to two
-    roundToTwo(arr);
+    roundToTwo(calcExp);
 }
 
 //display entered digit
@@ -96,16 +108,16 @@ digitNodeList.forEach(btn => btn.addEventListener("click", () => {
 
 //display entered operator unit
 opArray.forEach(btn => btn.addEventListener("click", () => {
-    //adds a whitespace in-between the operator used as a split delimiter for later
     allowDecimal = true;
     if (previousOp() == true && allowOp == true) {
+    //adds a whitespace in-between the operator
         calcDisplay.textContent += ` ${btn.value} `;
         allowOp = false;
     }
     calcInput.textContent = '';
 }));
 
-//limits the usability of the operator 
+//only allow one operator at a time
 function previousOp() {
     return calcDisplay.textContent.length != 0 ? true : false;
 }
@@ -114,15 +126,16 @@ function previousOp() {
 posNegBtn.onclick = () => {
     //convert array without removing the split delimiter
     let arr = calcDisplay.textContent.split(/(\s)/);
+
     //get the last item of the array
-    let str = arr[arr.length - 1];
+    let lastItem = arr[arr.length - 1];
     //It doesn't work without logical not/! 
 
-    if (!(str > 0)) {
-        arr[arr.length - 1] = Math.abs(+str);
+    if (!(lastItem > 0)) {
+        arr[arr.length - 1] = Math.abs(+lastItem);
     }
-    else if (!(str < 0)) {
-        arr[arr.length - 1] = -Math.abs(+str);
+    else if (!(lastItem < 0)) {
+        arr[arr.length - 1] = -Math.abs(+lastItem);
     }
 
     //return with altered last value of display
@@ -145,7 +158,7 @@ function roundToTwo(arr) {
 
 factorialBtn.onclick = () => {
     if (calcInput.textContent !== "") {
-        let arr = [];
+        const arr = [];
         let product = parseInt(calcInput.textContent);
         for (let i = product - 1; i > 1; i--) {
             product *= i;
@@ -164,12 +177,14 @@ allClearBtn.onclick = () => {
 
 //remove last character on display text
 clearCharBtn.onclick = () => {
+    //if equals to a whitespace remove the preceding char aswell
     if (calcDisplay.textContent.charAt(calcDisplay.textContent.length - 1) == " ") {
-        calcDisplay.textContent = calcDisplay.textContent.substring(0, calcDisplay.textContent.length - 3); //if equals to a whitespace remove the preceding char aswell
+        calcDisplay.textContent = calcDisplay.textContent.substring(0, calcDisplay.textContent.length - 3);
         allowOp = true;
     }
     else {
-        calcDisplay.textContent = calcDisplay.textContent.substring(0, calcDisplay.textContent.length - 1); //remove last character of the display text
+        //remove the last character of the display alphanumeric text
+        calcDisplay.textContent = calcDisplay.textContent.substring(0, calcDisplay.textContent.length - 1);
         allowOp = false;
     }
     calcInput.textContent = '';
@@ -177,8 +192,7 @@ clearCharBtn.onclick = () => {
 
 //keyboard support
 document.addEventListener('keydown', function (event) {
-    console.log(event.keyCode);
-    if (!isNaN(event)) {
+    if (isNaN(event)) {
         document.getElementById(`dig-${event.key}`).click();
     }
     else if (event.key === '/') {
