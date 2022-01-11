@@ -9,3 +9,6 @@ List of hidden or unclear key inputs:
 * 'Delete' -> AC
 * 'Enter' -> (=)
 * 's' -> (+-)
+
+### Credits
+Thanks to this [DavidRockDesign](https://pixabay.com/vectors/triangles-polygon-color-pink-1430105/) for the background image.

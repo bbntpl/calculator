@@ -6,8 +6,8 @@ const clearCharBtn = document.getElementById('backspace');
 const equalBtn = document.getElementById('equal');
 const calcDisplay = document.querySelector('.calc-screen__display');
 const calcInput = document.querySelector('.calc-screen__input');
-const opArray = Array.from(document.querySelectorAll(".operators"));
-const digitNodeList = [...document.querySelectorAll(".digits")];
+const opArray = Array.from(document.querySelectorAll('.operators'));
+const digitNodeList = [...document.querySelectorAll('.digits')];
 const posNegBtn = document.getElementById('plus-add');
 const decimalBtn = document.getElementById('decimal');
 const factorialBtn = document.getElementById('factorial');
@@ -19,13 +19,11 @@ const screenDAR = document.querySelector('.calc-screen__DAR');
 //limiters
 let allowDecimal = true;
 let allowOp = false;
-let operatorPrecedence = false;
-let DAR = false;
 let strWithoutWhitespace = "";
 
 //return the simple arithmetic expressions associated with the operator
 function calculate(op, a, b) {
-    let arithmeticObj = {
+    const arithmeticObj = {
         "*": +a * +b,
         "/": +a / +b,
         "+": +a + +b,
@@ -60,26 +58,9 @@ function countOperators(arr) {
     });
     return ii;
 }
-function evaluateSimple() {
-    let arr = calcDisplay.textContent.split(" ");
-    console.table(arr);
-    let endOfLoop = countOperators(arr); //number of operators
-    for (let i = 0; i < endOfLoop; i++) {
-        arr[2] = calculate(arr[1], arr[0], arr[2]);
-        arr.shift(arr[1]);
-        arr.shift(arr[0]);
-    }
-    if (arr[0].toString().indexOf('.') > -1) {
-        let finalResult = arr[0].toFixed(2);
-        return calcInput.textContent = finalResult;
-    }
-    else {
-        return calcInput.textContent = arr.join("");
-    }
-}
 
 //evaluate the arithmetic expression while precedence operator is enabled
-function evaluateComplex() {
+function evaluateAnswer() {
     let arr = calcDisplay.textContent.split(" "); //splitting the characters of the aritmetic expression with the whitespace
     let total = 0;
     for (let ii = 0; ii <= 3; ii++) { //ii=0 is divide, ii=1 is multiply, ii=2 is add, ii=3 is substraction
@@ -107,7 +88,7 @@ function evaluateComplex() {
 //display entered digit
 digitNodeList.forEach(btn => btn.addEventListener("click", () => {
     strWithoutWhitespace = calcDisplay.textContent.replace(/\s/g, "");
-    if (strWithoutWhitespace.length < 20) {
+    if (strWithoutWhitespace.length < 35) {
         calcDisplay.textContent += btn.textContent;
         allowOp = true;
     }
@@ -132,7 +113,7 @@ function previousOp() {
 //switch to positive or negative number
 posNegBtn.onclick = () => {
     //convert array without removing the split delimiter
-    let arr = calcDisplay.textContent.split(/(\s)/); 
+    let arr = calcDisplay.textContent.split(/(\s)/);
     //get the last item of the array
     let str = arr[arr.length - 1];
     //It doesn't work without logical not/! 
@@ -145,7 +126,7 @@ posNegBtn.onclick = () => {
     }
 
     //return with altered last value of display
-    return calcDisplay.textContent = arr.join(""); 
+    return calcDisplay.textContent = arr.join("");
 }
 
 //add decimal character
@@ -196,16 +177,17 @@ clearCharBtn.onclick = () => {
 
 //keyboard support
 document.addEventListener('keydown', function (event) {
-    if (!isNaN(event.key)) {
+    console.log(event.keyCode);
+    if (!isNaN(event)) {
         document.getElementById(`dig-${event.key}`).click();
     }
     else if (event.key === '/') {
         document.getElementById('divide').click();
     }
-    else if(event.key === '*' || event.key === 'x'){
+    else if (event.key === '*' || event.key === 'x') {
         document.getElementById('multiply').click();
     }
-    else if(event.key === '+' || event.key === 't' ){
+    else if (event.key === '+' || event.key === 't') {
         document.getElementById('add').click();
     }
     else if (event.key === '-') {
@@ -231,26 +213,8 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-switchPref.onclick = () => {
-    operatorPrecedence === true ? operatorPrecedence = false : operatorPrecedence = true;
-    screenPrecedence.classList.toggle('opPrecedence');
-    calcInput.textContent = "";
-}
-
-switchDisplay.onclick = () => {
-    DAR === true ? DAR = false : DAR = true;
-    screenDAR.classList.toggle('screenDAR');
-}
-
 //finalize result
 equal.onclick = () => {
-    if (operatorPrecedence == true) {
-        evaluateComplex();
-    }
-    else {
-        evaluateSimple();
-    }
-    if (DAR == true) {
-        calcDisplay.textContent = calcInput.textContent;
-    }
+    evaluateAnswer();
+    calcDisplay.textContent = calcInput.textContent;
 }
