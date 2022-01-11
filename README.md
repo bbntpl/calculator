@@ -2,6 +2,9 @@
 The purpose of this project is to test myself using the knowledge I have learned; the foundation of the HTML, CSS, and basics of the Javascript language. It is simply to put all together what I have gained from the [The Odin Project](theodinproject.com).
 
 ### Screenshots
+![odin-calculator__ss](https://user-images.githubusercontent.com/96958013/149000645-7b913d46-a3b2-480d-9ef6-ae3a9b805f54.png)
+![odin-calculator__ss--mobile-portrait](https://user-images.githubusercontent.com/96958013/149000648-915b0873-fe84-4724-bcc9-9750f94a540b.png)
+![odin-calculator__ss--mobile-landscape](https://user-images.githubusercontent.com/96958013/149000652-55b4ebcc-622f-469e-9cf0-b66f886fe4c2.png)
 
 #### Keyboard Mapping
 List of hidden or unclear key inputs: 
