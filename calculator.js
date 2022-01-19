@@ -76,12 +76,12 @@ function evaluateAnswer() {
             if (v == supersedeOperators(v, ii)) {
                 let op = v;
                 //making sure previous is not undefined after assigning as a whitespace
-                p = arr[i - 1]; 
-                total = calculate(op, p, arr[i + 1]); 
+                p = arr[i - 1];
+                total = calculate(op, p, arr[i + 1]);
                 //replace the next value as total
-                arr[i + 1] = total; 
+                arr[i + 1] = total;
                 //replacing the previous && current value with whitespace 
-                arr[i] = " "; 
+                arr[i] = " ";
                 arr[i - 1] = " ";
             }
             else if (arr.length < 2) {
@@ -110,7 +110,7 @@ digitNodeList.forEach(btn => btn.addEventListener("click", () => {
 opArray.forEach(btn => btn.addEventListener("click", () => {
     allowDecimal = true;
     if (previousOp() == true && allowOp == true) {
-    //adds a whitespace in-between the operator
+        //adds a whitespace in-between the operator
         calcDisplay.textContent += ` ${btn.value} `;
         allowOp = false;
     }
@@ -150,6 +150,9 @@ decimalBtn.onclick = () => {
     allowDecimal = false;
 };
 
+function filterNumbers(str) {
+    return [...str].filter(n => typeof parseInt(n) === 'number').join('');
+}
 //limit decimal places to two
 function roundToTwo(arr) {
     let finalResult = arr[0].toFixed(2);
@@ -157,9 +160,12 @@ function roundToTwo(arr) {
 }
 
 factorialBtn.onclick = () => {
-    if (calcInput.textContent !== "") {
+    const operatorsRegex = /\*|-|\/|\+/;
+    const allowFactorial = !operatorsRegex.test(calcDisplay.textContent) || calcInput.textContent !== "";
+    if (allowFactorial) {
+        const mathExpToNumber = parseInt(filterNumbers(calcDisplay.textContent));
         const arr = [];
-        let product = parseInt(calcInput.textContent);
+        let product = !operatorsRegex.test(calcDisplay.textContent) && calcInput.textContent === "" ? mathExpToNumber : parseInt(calcInput.textContent);
         for (let i = product - 1; i > 1; i--) {
             product *= i;
         }
@@ -177,10 +183,14 @@ allClearBtn.onclick = () => {
 
 //remove last character on display text
 clearCharBtn.onclick = () => {
+    const lastChar = calcDisplay.textContent.charAt(calcDisplay.textContent.length - 1);
     //if equals to a whitespace remove the preceding char aswell
-    if (calcDisplay.textContent.charAt(calcDisplay.textContent.length - 1) == " ") {
+    if (lastChar === " ") {
         calcDisplay.textContent = calcDisplay.textContent.substring(0, calcDisplay.textContent.length - 3);
         allowOp = true;
+    }
+    else if (lastChar == "." && !allowDecimal) {
+        allowDecimal = true;
     }
     else {
         //remove the last character of the display alphanumeric text
@@ -192,7 +202,7 @@ clearCharBtn.onclick = () => {
 
 //keyboard support
 document.addEventListener('keydown', function (event) {
-    if (isNaN(event)) {
+    if (!isNaN(Number(event.key))) {
         document.getElementById(`dig-${event.key}`).click();
     }
     else if (event.key === '/') {
@@ -207,22 +217,22 @@ document.addEventListener('keydown', function (event) {
     else if (event.key === '-') {
         document.getElementById('subtract').click();
     }
-    else if (event.key === 's') {
+    else if (event.key === 's' || event.key === 'S') {
         posNegBtn.click();
     }
     else if (event.key === '!') {
         factorialBtn.click();
     }
-    else if (event.key === 'Backspace') {
+    else if (event.code === 'Backspace') {
         clearCharBtn.click();
     }
-    else if (event.key === 'Delete') {
+    else if (event.code === 'Delete') {
         allClearBtn.click();
     }
     else if (event.key === '.') {
         decimalBtn.click();
     }
-    else if (event.key === 'Enter') {
+    else if (event.code === 'Enter') {
         equalBtn.click();
     }
 });
